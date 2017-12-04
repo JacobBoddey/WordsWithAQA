@@ -117,7 +117,39 @@ namespace WordsCS
                 {
                     PlayGame(AllowedWords, TileDictionary, false, 15, MaxHandSize, MaxTilesPlayed, NoOfEndOfTurnTiles);
                 }
+                else if (Choice == "3")
+                {
+                    AddOrRemoveWord(ref AllowedWords);
+                }
             }
+        }
+
+        private static void AddOrRemoveWord(ref List<string> AllowedWords)
+        {
+            Console.WriteLine("Enter the word you would like to add or remove from the allowed words list: ");
+            string input = Console.ReadLine();
+            StreamWriter FileWriter = new StreamWriter("aqawords.txt");
+
+            if (AllowedWords.Contains(input))
+            {
+                AllowedWords.Remove(input);
+                Console.WriteLine(input.ToUpper() + " was removed from the allowed words");
+            }
+            else
+            {
+                AllowedWords.Add(input);
+                Console.WriteLine(input.ToUpper() + " was added to the allowed words");
+            }
+
+            foreach (string word in AllowedWords)
+            {
+                FileWriter.WriteLine(word.ToUpper());
+            }
+
+            FileWriter.Close();
+            
+            Console.WriteLine("Reloading allowed words...\n");
+            LoadAllowedWords(ref AllowedWords);
         }
 
         private static void CreateTileDictionary(ref Dictionary<char, int> TileDictionary)
@@ -461,6 +493,7 @@ namespace WordsCS
             Console.WriteLine();
             Console.WriteLine("1. Play game with random start hand");
             Console.WriteLine("2. Play game with training start hand");
+            Console.WriteLine("3. Add or remove allowed words");
             Console.WriteLine("9. Quit");
             Console.WriteLine();
         }
