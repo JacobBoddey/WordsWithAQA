@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace WordsCS
 {
@@ -293,6 +294,7 @@ namespace WordsCS
             Console.WriteLine("Either:");
             Console.WriteLine("     enter the word you would like to play OR");
             Console.WriteLine("     press 1 to display the letter values OR");
+            Console.WriteLine("     press 2 to shuffle your hand (once per turn)");
             Console.WriteLine("     press 4 to view the tile queue OR");
             Console.WriteLine("     press 7 to view your tiles again OR");
             Console.WriteLine("     press 0 to fill hand and stop the game.");
@@ -335,6 +337,7 @@ namespace WordsCS
             string NewTileChoice = "2";
             bool ValidChoice = false;
             bool ValidWord = false;
+            bool HasShuffled = false;
             string Choice = "";
             while (!ValidChoice)
             {
@@ -342,6 +345,20 @@ namespace WordsCS
                 if (Choice == "1")
                 {
                     DisplayTileValues(TileDictionary, AllowedWords);
+                }
+                else if (Choice == "2")
+                {
+                    if (HasShuffled)
+                    {
+                        Console.WriteLine("You have already shuffled your hand this turn");
+                    }
+                    else
+                    {
+                        ShuffleHand(ref PlayerTiles);
+                        HasShuffled = true;
+                        Console.WriteLine("Your hand has been shuffled");
+                        DisplayTilesInHand(PlayerTiles);
+                    }
                 }
                 else if (Choice == "4")
                 {
@@ -394,6 +411,21 @@ namespace WordsCS
                     Console.WriteLine("Your new score is:" + PlayerScore);
                     Console.WriteLine("You have played " + PlayerTilesPlayed + " tiles so far in this game.");
                 }
+            }
+        }
+
+        private static void ShuffleHand(ref String PlayerTiles)
+        {
+            Random r = new Random();
+            for (int i=0;i<10;i++)
+            { 
+                int j = r.Next(PlayerTiles.Length);
+                StringBuilder s = new StringBuilder(PlayerTiles);
+                char c = PlayerTiles[j];
+                int k = r.Next(PlayerTiles.Length);
+                s[j] = s[k];
+                s[k] = c;
+                PlayerTiles = s.ToString();
             }
         }
 
