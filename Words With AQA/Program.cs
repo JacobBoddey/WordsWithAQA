@@ -320,10 +320,18 @@ namespace WordsCS
             return NewTileChoice; ;
         }
 
-        private static void DisplayTilesInHand(string PlayerTiles)
+        private static void DisplayTilesInHand(string PlayerTiles, Dictionary<char, int> TileDictionary)
         {
             Console.WriteLine();
-            Console.WriteLine("Your current hand:" + PlayerTiles);
+            Console.WriteLine("Your current hand:");
+
+            foreach (char c in PlayerTiles)
+            {
+                Console.Write(c + "(" + TileDictionary[c] + ") ");
+            }
+
+            Console.WriteLine();
+
         }
 
 
@@ -331,7 +339,7 @@ namespace WordsCS
         {
             Console.WriteLine();
             Console.WriteLine(PlayerName + " it is your turn.");
-            DisplayTilesInHand(PlayerTiles);
+            DisplayTilesInHand(PlayerTiles, TileDictionary);
             string NewTileChoice = "2";
             bool ValidChoice = false;
             bool ValidWord = false;
@@ -349,7 +357,7 @@ namespace WordsCS
                 }
                 else if (Choice == "7")
                 {
-                    DisplayTilesInHand(PlayerTiles);
+                    DisplayTilesInHand(PlayerTiles, TileDictionary);
                 }
                 else if (Choice == "0")
                 {
