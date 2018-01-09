@@ -265,6 +265,10 @@ namespace WordsCS
             {
                 Score = Score + 5;
             }
+            else if (Word.Length >= 2 && Word.Length <= 3)
+            {
+                Score = Score - 1;
+            }
             return Score;
         }
 
