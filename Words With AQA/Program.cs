@@ -397,20 +397,29 @@ namespace WordsCS
             }
         }
 
-        private static void DisplayWinner(int PlayerOneScore, int PlayerTwoScore)
+        private static void DisplayWinner(int PlayerOneScore, int PlayerTwoScore, int PlayerThreeScore)
         {
             Console.WriteLine();
             Console.WriteLine("**** GAME OVER! ****");
             Console.WriteLine();
             Console.WriteLine("Player One your score is " + PlayerOneScore);
             Console.WriteLine("Player Two your score is " + PlayerTwoScore);
-            if (PlayerOneScore > PlayerTwoScore)
+            Console.WriteLine("Player Three your score is " + PlayerTwoScore);
+            if (PlayerOneScore > PlayerTwoScore && PlayerOneScore > PlayerThreeScore)
             {
                 Console.WriteLine("Player One wins!");
             }
-            else if (PlayerTwoScore > PlayerOneScore)
+            else if (PlayerTwoScore > PlayerOneScore && PlayerTwoScore > PlayerThreeScore)
             {
                 Console.WriteLine("Player Two wins!");
+            }
+            else if (PlayerThreeScore > PlayerOneScore && PlayerThreeScore > PlayerTwoScore)
+            {
+                Console.WriteLine("Player Three wins!");
+            }
+            else if (PlayerOneScore == PlayerTwoScore || PlayerOneScore == PlayerThreeScore || PlayerTwoScore == PlayerThreeScore)
+            {
+                Console.WriteLine("No clear winner");
             }
             else
             {
@@ -423,22 +432,27 @@ namespace WordsCS
         {
             int PlayerOneScore = 50;
             int PlayerTwoScore = 50;
+            int PlayerThreeScore = 50;
             int PlayerOneTilesPlayed = 0;
             int PlayerTwoTilesPlayed = 0;
+            int PlayerThreeTilesPlayed = 0;
             string PlayerOneTiles = "";
             string PlayerTwoTiles = "";
+            string PlayerThreeTiles = "";
             QueueOfTiles TileQueue = new QueueOfTiles(20);
             if (RandomStart)
             {
                 PlayerOneTiles = GetStartingHand(TileQueue, StartHandSize);
                 PlayerTwoTiles = GetStartingHand(TileQueue, StartHandSize);
+                PlayerThreeTiles = GetStartingHand(TileQueue, StartHandSize);
             }
             else
             {
                 PlayerOneTiles = "BTAHANDENONSARJ";
                 PlayerTwoTiles = "CELZXIOTNESMUAA";
+                PlayerThreeTiles = "ABCDEFGHIJKLMO";
             }
-            while (PlayerOneTilesPlayed <= MaxTilesPlayed && PlayerTwoTilesPlayed <= MaxTilesPlayed && PlayerOneTiles.Length < MaxHandSize && PlayerTwoTiles.Length < MaxHandSize)
+            while (PlayerOneTilesPlayed <= MaxTilesPlayed && PlayerTwoTilesPlayed <= MaxTilesPlayed && PlayerThreeTilesPlayed <= MaxTilesPlayed && PlayerOneTiles.Length < MaxHandSize && PlayerTwoTiles.Length < MaxHandSize && PlayerThreeTiles.Length < MaxHandSize)
             {
                 HaveTurn("Player One", ref PlayerOneTiles, ref PlayerOneTilesPlayed, ref PlayerOneScore, TileDictionary, ref TileQueue, AllowedWords, MaxHandSize, NoOfEndOfTurnTiles);
                 Console.WriteLine();
@@ -446,10 +460,16 @@ namespace WordsCS
                 Console.ReadLine();
                 Console.WriteLine();
                 HaveTurn("Player Two", ref PlayerTwoTiles, ref PlayerTwoTilesPlayed, ref PlayerTwoScore, TileDictionary, ref TileQueue, AllowedWords, MaxHandSize, NoOfEndOfTurnTiles);
+                Console.WriteLine();
+                Console.WriteLine("Press Enter to continue");
+                Console.ReadLine();
+                Console.WriteLine();
+                HaveTurn("Player Three", ref PlayerThreeTiles, ref PlayerThreeTilesPlayed, ref PlayerThreeScore, TileDictionary, ref TileQueue, AllowedWords, MaxHandSize, NoOfEndOfTurnTiles);
             }
             UpdateScoreWithPenalty(ref PlayerOneScore, PlayerOneTiles, TileDictionary);
             UpdateScoreWithPenalty(ref PlayerTwoScore, PlayerTwoTiles, TileDictionary);
-            DisplayWinner(PlayerOneScore, PlayerTwoScore);
+            UpdateScoreWithPenalty(ref PlayerThreeScore, PlayerThreeTiles, TileDictionary);
+            DisplayWinner(PlayerOneScore, PlayerTwoScore, PlayerThreeScore);
         }
 
         private static void DisplayMenu()
