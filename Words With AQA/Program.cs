@@ -123,8 +123,9 @@ namespace WordsCS
         private static void CreateTileDictionary(ref Dictionary<char, int> TileDictionary)
         {
             int[] Value1 = { 0, 4, 8, 13, 14, 17, 18, 19 };
-            int[] Value2 = { 1, 2, 3, 6, 11, 12, 15, 20 };
-            int[] Value3 = { 5, 7, 10, 21, 22, 24 };
+            int[] Value2 = { 1, 2, 3, 6, 12, 15, 20 };
+            int[] Value3 = { 5, 7, 10, 22 };
+            int[] Value4 = { 11, 21, 24 };
             for (int Count = 0; Count < 26; Count++)
             {
                 if (Array.IndexOf(Value1, Count) > -1)
@@ -138,6 +139,10 @@ namespace WordsCS
                 else if (Array.IndexOf(Value3, Count) > -1)
                 {
                     TileDictionary.Add((char)(65 + Count), 3);
+                }
+                else if (Array.IndexOf(Value4, Count) > -1)
+                {
+                    TileDictionary.Add((char)(65 + Count), 4);
                 }
                 else
                 {
