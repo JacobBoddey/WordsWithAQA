@@ -2,6 +2,7 @@
 // this code should be used in conjunction with the Preliminary Material
 // written by the AQA Programmer Team
 // developed using Visual Studio 2015
+// Version 1.2 released March 2018
 
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,9 @@ namespace WordsCS
     {
         class QueueOfTiles
         {
-            private List<string> Contents = new List<string>();
-            private int Rear;
-            private int MaxSize;
+            protected List<string> Contents = new List<string>();
+            protected int Rear;
+            protected int MaxSize;
             Random Rnd = new Random();
 
             public QueueOfTiles(int MaxSize)
@@ -117,7 +118,7 @@ namespace WordsCS
                 {
                     PlayGame(AllowedWords, TileDictionary, false, 15, MaxHandSize, MaxTilesPlayed, NoOfEndOfTurnTiles);
                 }
-            }
+            }   
         }
 
         private static void CreateTileDictionary(ref Dictionary<char, int> TileDictionary)
