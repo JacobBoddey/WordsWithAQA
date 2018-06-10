@@ -89,6 +89,33 @@ namespace WordsCS
             }
         }
 
+        class Player
+        {
+
+            private int Score;
+            private String Hand;
+
+            public Player()
+            {
+                QueueOfTiles TileQueue = new QueueOfTiles(20);
+                int StartingHandSize = 15;
+
+                this.Hand = GetStartingHand(TileQueue, StartingHandSize);
+                this.Score = 50;
+            }
+
+            public int GetScore()
+            {
+                return this.Score;
+            }
+
+            public String getHand()
+            {
+                return this.Hand;
+            }
+
+        }
+
         static void Main(string[] args)
         {
             List<String> AllowedWords = new List<string>();
@@ -118,7 +145,7 @@ namespace WordsCS
                 {
                     PlayGame(AllowedWords, TileDictionary, false, 15, MaxHandSize, MaxTilesPlayed, NoOfEndOfTurnTiles);
                 }
-            }   
+            }
         }
 
         private static void CreateTileDictionary(ref Dictionary<char, int> TileDictionary)
